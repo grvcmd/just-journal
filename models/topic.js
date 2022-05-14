@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const topicSchema = new Schema({
-    text: String,
+    topicName: String,
     date_added: {
         type: Date,
         immutable: true,
