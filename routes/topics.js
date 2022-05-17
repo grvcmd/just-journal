@@ -21,7 +21,7 @@ router.get('/', (req, res, next) => {
 router.get('/:topicName', (req, res, next) => {
     console.log(`Getting ${req.params.topicName} topic.`)
 
-    TopicModel.findOne({topicName: req.params.topicName}, (error, data) => {
+    TopicModel.findOne({topicName: {$regex: req.params.topicName}}, (error, data) => {
         if (error) {
             return next(error)
         } else if (data === null) {
@@ -47,13 +47,25 @@ router.post('/', (req, res, next) => {
 router.delete('/:topicName', (req, res, next) => {
     TopicModel.findOneAndRemove({topicName: req.params.topicName}, (error, data) => {
         if (error) {
-            return next (error)
+            return next(error)
         } else {
             res.status(200).json({
                 msg: data
             })
         }
     })
-})
+});
+
+// Update topic
+router.put('/:topicName', (req, res, next) => {
+    TopicModel.findOneAndUpdate({topicName: req.params.topicName}, {$set: req.body}, (error, data) => {
+        if (error) {
+            return next(error)
+        } else {
+            res.send('Topic was updated.')
+            console.log('Topic updated successfully.', data)
+        }
+    })
+});
 
 module.exports = router;
