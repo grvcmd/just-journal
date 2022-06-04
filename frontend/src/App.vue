@@ -24,7 +24,9 @@
     </div>
   </nav>
 
-  <RouterView />
+  <div class="container mt-5">
+    <RouterView />
+  </div>
   
   </div>
 </template>
