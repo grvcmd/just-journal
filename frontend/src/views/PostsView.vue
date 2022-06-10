@@ -6,6 +6,7 @@
                     <th>Entry Name</th>
                     <th>Topic</th>
                     <th>Text</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -14,6 +15,9 @@
                     <td>{{post.topic}}</td>
                     <td>{{post.text}}</td>
                     <!-- Add View, Edit, Delete buttons -->
+                    <td>
+                        <button @click.prevent="deletePost(post.entryName)" class="btn btn-danger mx-1">Delete</button>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -30,7 +34,7 @@
             }
         },
         created() {
-            let apiURL = 'http://localhost:3000/entries';
+            let apiURL = 'http://localhost:3001/entries';
             axios.get(apiURL).then(res => {
                 this.Posts = res.data;
             }).catch(error => {
@@ -38,8 +42,19 @@
             });
         },
         methods: {
-            // Delete post method
+            // Delete post method using the posts' entryName
+            deletePost(entryName) {
+                let apiURL = `http://localhost:3001/entries/${entryName}`
+                let indexOfArrayItem = this.Posts.findIndex(i => i.entryName === entryName);
 
+                if (window.confirm("Delete this post?")) {
+                    axios.delete(apiURL).then(() => {
+                        this.Posts.splice(indexOfArrayItem, 1);
+                    }).catch(error => {
+                        console.log(error)
+                    });
+                }
+            }
             // Create post method
         }
     }
