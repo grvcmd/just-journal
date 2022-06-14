@@ -16,6 +16,7 @@
                     <td>{{post.text}}</td>
                     <!-- Add View, Edit, Delete buttons -->
                     <td>
+                        <router-link :to="{name: 'edit-post', params: {id:post.entryName}}" class="btn btn-success">Edit</router-link>
                         <button @click.prevent="deletePost(post.entryName)" class="btn btn-danger mx-1">Delete</button>
                     </td>
                 </tr>
