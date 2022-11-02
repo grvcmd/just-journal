@@ -84,7 +84,7 @@ router.put('/id/:topicID', (req, res, next) => {
     })
 });
 
-// TODO: aggregation endpoint to get all entries under a certain topic using the topic's topicID
+// aggregation endpoint to get all entries under a certain topic using the topic's topicID
 router.get('/topic-entry/:topicID', (req, res, next) => {
     console.log(`Trying to find all entries under topic w/ topicID: ${req.params.topicID}`)
     TopicModel.aggregate([
