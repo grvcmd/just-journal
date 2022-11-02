@@ -22,12 +22,16 @@ app.use(cors());
 const topicRouter = require('./routes/topics')
 const entryRouter = require('./routes/entries')
 
+// Every router created with topicRouter will
+// be added to the end of '/topics'
 app.use('/topics', topicRouter);
+// Every router created with entryRouter will
+// be added to the end of '/entries'
 app.use('/entries', entryRouter);
 
 // Endpoint for the homepage
 app.get('/', (req, res) => {
-    res.send('This is the homepage')
+    res.send('Hello, This is the homepage')
 });
 
 

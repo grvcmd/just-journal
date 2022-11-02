@@ -12,10 +12,7 @@
           <router-link class="nav-link" to="/">Home</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/posts">Posts</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link class="nav-link" to="/about">About</router-link>
+          <router-link class="nav-link" to="/view-topics">Topics</router-link>
         </li>
         <li class="nav-item">
           <router-link class="nav-link" to="/contact">Contact</router-link>
@@ -25,7 +22,8 @@
   </nav>
 
   <div class="container mt-5">
-    <RouterView />
+    <!-- <RouterView /> -->
+    <RouterView></RouterView>
   </div>
   
   </div>

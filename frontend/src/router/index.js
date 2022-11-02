@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
+//below we're creating the routes
+//importing components & views from their local loaction
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -10,22 +12,16 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
+      // view to display all topics
+      path: '/view-topics',
+      name: 'view-topics',
+      component: () => import('../views/TopicView.vue')
     },
     {
-      path: '/posts',
-      name: 'posts',
-      component: () => import('../views/PostsView.vue')
-    },
-    {
-      path: '/edit-post',
-      name: 'edit-post',
-      component: () => import('../components/EditPostComponent.vue')
+      // Edit existing topic
+      path: '/edit-topic',
+      name: 'edit-topic',
+      component: () => import('../components/EditTopicComponent.vue')
     },
   ]
 })
