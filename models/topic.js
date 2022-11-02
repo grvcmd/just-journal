@@ -7,9 +7,15 @@ const topicSchema = new Schema({
         type: Date,
         immutable: true,
         default: () => Date.now()
+    },
+    topicID: {
+        type: Number,
+        required: true,
+        unique: true
     }
 }, {
-    collection: 'topics'
+    collection: 'topics',
+    versionKey: false
 });
 
 module.exports = mongoose.model("Topic", topicSchema);

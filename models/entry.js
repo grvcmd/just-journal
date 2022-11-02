@@ -6,15 +6,25 @@ const entrySchema = new Schema({
         type: String,
         required: true
     },
-    topic: String,
+    topicName: String,
     text: String,
     date_added: {
         type: Date,
         immutable: true,
         default: () => Date.now()
+    },
+    topicID: {
+        type: Number,
+        required: true
+    },
+    entryID: {
+        type: Number,
+        required: true,
+        unique: true
     }
 }, {
-    collection: 'entries'
+    collection: 'entries',
+    versionKey: false
 });
 
 module.exports = mongoose.model("Entry", entrySchema);

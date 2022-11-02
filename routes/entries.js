@@ -1,10 +1,20 @@
+/*
+All routes related to entries
+*/
+
 const express = require('express');
+//Router lets us create views with the same
+//functionality as app.get()
 const router = express.Router();
 
 // Import the entry model
 const EntryModel = require('./../models/entry');
 
-// Get all entries
+/*
+EntryModel and all other models use mongoose queries.
+*/
+
+// endpoint to get all entries from the API
 router.get('/', (req, res, next) => {
     console.log('currently in /entries')
 
@@ -17,12 +27,26 @@ router.get('/', (req, res, next) => {
     })
 });
 
-// TODO: Get entry by entry name using regex
-// Might DELETE this...
-router.get('/:entryName', (req, res, next) => {
-    console.log("Finding entry...")
+// endpoint to get entry with given entryID
+router.get('/id/:entryID', (req, res, next) => {
+    console.log(`Getting entry with entryID: ${req.params.entryID}`)
 
-    EntryModel.findOne({entryName: {$regex: req.params.entryName}}, (error, data) => {
+    EntryModel.findOne({ entryID: req.params.entryID }, (error, data) => {
+        if (error) {
+            return next(error)
+        } else if (data === null) {
+            res.status(400).send('Topic not found')
+        } else {
+            res.json(data)
+        }
+    })
+})
+
+// endpoint to get all entries that contain the given entryName
+router.get('/:entryName', (req, res, next) => {
+    console.log("Finding entries...")
+    // regex: return anything that matches the entryName
+    EntryModel.find({entryName: new RegExp(req.params.entryName, 'gi')}, (error, data) => {
         if (error) {
             return next(error)
         } else if (data === null) {
@@ -31,15 +55,12 @@ router.get('/:entryName', (req, res, next) => {
             res.json(data)
         }
     })
-});
-
-// TODO: Get all entries under a certain topic
-
+})
 
 // TODO: Get all entries within a date range
 
 
-// Create entry
+// endpoint to create entry
 router.post('/', (req, res, next) => {
     EntryModel.create(req.body, (error, data) => {
         if (error) {
@@ -50,9 +71,9 @@ router.post('/', (req, res, next) => {
     })
 });
 
-// Delete entry
-router.delete('/:entryName', (req, res, next) => {
-    EntryModel.findOneAndRemove({entryName: req.params.entryName}, (error, data) => {
+// endpoing to delete entry (find by entryID)
+router.delete('/id/:entryID', (req, res, next) => {
+    EntryModel.findOneAndRemove({entryID: req.params.entryID}, (error, data) => {
         if (error) {
             return next(error)
         } else {
@@ -63,9 +84,9 @@ router.delete('/:entryName', (req, res, next) => {
     })
 });
 
-// Update entry
-router.put('/:entryName', (req, res, next) => {
-    EntryModel.findOneAndUpdate({entryName: req.params.entryName}, {$set: req.body}, (error, data) => {
+// endpoint to update entry (found by entryID)
+router.put('/id/:entryID', (req, res, next) => {
+    EntryModel.findOneAndUpdate({entryID: req.params.entryID}, {$set: req.body}, (error, data) => {
         if (error) {
             return next(error)
         } else {
