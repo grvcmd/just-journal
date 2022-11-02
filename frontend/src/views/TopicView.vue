@@ -14,6 +14,7 @@
                     <td>{{topic.topicName}}</td>
                     <!-- Edit and Delete buttons -->
                     <td>
+                        <router-link :to="{name: 'topic-entries', params: { topicID: topic.topicID }}" class="btn btn-info mx-1">Entries</router-link>
                         <router-link :to="{name: 'edit-topic', params: {id:topic.topicID}}" class="btn btn-success">Edit</router-link>
                         <button @click.prevent="deleteTopic(topic.topicID)" class="btn btn-danger mx-1">Delete</button>
                     </td>

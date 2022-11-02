@@ -23,6 +23,12 @@ const router = createRouter({
       name: 'edit-topic',
       component: () => import('../components/EditTopicComponent.vue')
     },
+    {
+      // display all entries of a topic
+      path: '/topic-entries/:topicID',
+      name: 'topic-entries',
+      component: () => import('../views/TopicEntriesView.vue')
+    },
   ]
 })
 
